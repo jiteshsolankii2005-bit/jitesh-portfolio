@@ -80,6 +80,16 @@ document.querySelector("[data-copy-email]")?.addEventListener("click", async () 
   window.setTimeout(() => toast?.classList.remove("is-visible"), 1600);
 });
 
+const toTop = document.querySelector("[data-to-top]");
+function updateToTop() {
+  toTop?.classList.toggle("is-visible", window.scrollY > 480);
+}
+updateToTop();
+window.addEventListener("scroll", updateToTop, { passive: true });
+toTop?.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
+});
+
 document.querySelector("[data-tilt-card]")?.addEventListener("pointermove", (event) => {
   const card = event.currentTarget;
   const rect = card.getBoundingClientRect();
@@ -107,3 +117,41 @@ document.querySelectorAll(".reveal-card").forEach((card, index) => {
   card.style.setProperty("--delay", `${(index % 4) * 70}ms`);
   observer.observe(card);
 });
+
+// Scroll-spy: highlight the nav link for the section currently in view.
+const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
+const sections = navLinks
+  .map((link) => document.querySelector(link.getAttribute("href")))
+  .filter(Boolean);
+
+function setActiveNav() {
+  if (!sections.length) return;
+  let current = sections[0];
+  const offset = 120;
+  sections.forEach((section) => {
+    if (section.getBoundingClientRect().top - offset <= 0) {
+      current = section;
+    }
+  });
+  navLinks.forEach((link) => {
+    link.classList.toggle("is-current", link.getAttribute("href") === `#${current.id}`);
+  });
+}
+setActiveNav();
+window.addEventListener("scroll", setActiveNav, { passive: true });
+window.addEventListener("resize", setActiveNav);
+
+// Magnetic hover for skill chips, mirroring the button magnetic effect.
+if (!prefersReducedMotion) {
+  document.querySelectorAll(".skill-cloud span").forEach((chip) => {
+    chip.addEventListener("pointermove", (event) => {
+      const rect = chip.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      chip.style.transform = `translate(${x * 5}px, ${y * 5 - 2}px)`;
+    });
+    chip.addEventListener("pointerleave", () => {
+      chip.style.transform = "";
+    });
+  });
+}
