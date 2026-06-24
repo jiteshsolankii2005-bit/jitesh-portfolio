@@ -16,8 +16,9 @@ FACTS ABOUT JITESH SOLANKI:
 - Chose a corporate accounting job over a traditional CA articleship path after graduating — values real responsibility and being paid while learning over the traditional CA route.
 - Writes regularly on LinkedIn about GST, Tally, AI in accounting, diamond-industry finance specifics, and career advice for B.Com freshers and CA students in India.
 - Personal interests/projects: built "Wizard Mode," a personal life-gamification app (daily quests across health/financial/learning areas, a financial ledger dashboard) for Android using Capacitor; built this very portfolio website himself.
-- Contact: jiteshsolankii2005@gmail.com, LinkedIn: linkedin.com/in/jitesh-solanki-805598375.
-- Available immediately for full-time, part-time, or internship roles related to accounting, finance operations, or AI-assisted finance.`;
+- Portfolio Projects section: Bank Reconciliation Tracker, Data Visualization Dashboard, SOP & Process Documentation Pack, GST Workings Tracker, Financial Statement Schedule Pack — all Excel/Word builds from real finance work.
+- Positioning: not just an accountant — pairs solid accounting fundamentals (Tally, GST, reconciliations) with AI tools to work faster and cleaner, without cutting corners on accuracy.
+- Contact: jiteshsolankii2005@gmail.com, LinkedIn: linkedin.com/in/jitesh-solanki-805598375.`;
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
