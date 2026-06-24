@@ -20,6 +20,81 @@ FACTS ABOUT JITESH SOLANKI:
 - Positioning: not just an accountant — he's a finance professional who is also an AI generalist. Accounting fundamentals (Tally, GST, reconciliations) are the foundation; AI tools are how he solves problems faster and cleaner, without cutting corners on accuracy.
 - Contact: jiteshsolankii2005@gmail.com, LinkedIn: linkedin.com/in/jitesh-solanki-805598375.`;
 
+const AI_PROVIDERS = [
+  {
+    name: 'pollinations-text-openai',
+    url: 'https://text.pollinations.ai/openai',
+    body: (question) => ({
+      model: 'openai',
+      messages: [
+        { role: 'system', content: CONTEXT },
+        { role: 'user', content: question },
+      ],
+    }),
+    read: (data) => data.choices?.[0]?.message?.content?.trim(),
+  },
+  {
+    name: 'pollinations-gen-openai',
+    url: 'https://gen.pollinations.ai/v1/chat/completions',
+    body: (question) => ({
+      model: 'openai',
+      messages: [
+        { role: 'system', content: CONTEXT },
+        { role: 'user', content: question },
+      ],
+    }),
+    read: (data) => data.choices?.[0]?.message?.content?.trim(),
+  },
+];
+
+async function askProvider(provider, question) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 9000);
+  try {
+    const aiRes = await fetch(provider.url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      signal: controller.signal,
+      body: JSON.stringify(provider.body(question)),
+    });
+
+    if (!aiRes.ok) {
+      const errText = await aiRes.text();
+      throw new Error(`${provider.name} ${aiRes.status}: ${errText.slice(0, 160)}`);
+    }
+
+    const data = await aiRes.json();
+    const answer = provider.read(data);
+    if (!answer) throw new Error(`${provider.name}: empty answer`);
+    return answer;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function localAnswer(question) {
+  const q = question.toLowerCase();
+  if (/\b(contact|email|mail|connect|reach|get in touch)\b/.test(q)) {
+    return "Sure. I can open an email draft for you with Jitesh's address filled in. Add your message and send it when you're ready.";
+  }
+  if (/\b(theme|dark|light|color|colour|look|background)\b/.test(q)) {
+    return "I can help with the site mood too. Try asking: make it dark, make it classic, make it green, or reset theme.";
+  }
+  if (/\b(project|work|portfolio|download)\b/.test(q)) {
+    return "Jitesh has practical finance projects on the Projects page: reconciliation, GST workings, financial schedules, documentation, and dashboards.";
+  }
+  if (/\b(skill|tally|gst|excel|account|finance)\b/.test(q)) {
+    return "Jitesh works around accounting, Tally Prime, GST workings, Excel trackers, reconciliations, and practical AI-assisted finance workflows.";
+  }
+  if (/\b(resume|cv)\b/.test(q)) {
+    return "His resume is available from the site header and hero actions. If you want, ask me to help contact Jitesh and I can open an email draft.";
+  }
+  if (/\b(blog|post|linkedin|writing)\b/.test(q)) {
+    return "His Blog page collects notes from LinkedIn about GST, Tally, AI in accounting, and learning while working in finance.";
+  }
+  return "I know Jitesh's portfolio, projects, skills, blog, resume, and contact details. Ask me about any of those, or ask me to help you connect with him.";
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
@@ -32,31 +107,16 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  try {
-    const aiRes = await fetch('https://text.pollinations.ai/openai', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'openai',
-        messages: [
-          { role: 'system', content: CONTEXT },
-          { role: 'user', content: question.trim().slice(0, 500) },
-        ],
-      }),
-    });
-
-    if (!aiRes.ok) {
-      const errText = await aiRes.text();
-      console.error('Pollinations API error:', aiRes.status, errText);
-      res.status(200).json({ answer: "My brain hiccuped on that one. Try asking again in a moment?" });
+  const cleanQuestion = question.trim().slice(0, 500);
+  for (const provider of AI_PROVIDERS) {
+    try {
+      const answer = await askProvider(provider, cleanQuestion);
+      res.status(200).json({ answer, source: provider.name });
       return;
+    } catch (err) {
+      console.error('Byte provider failed:', err.message);
     }
-
-    const data = await aiRes.json();
-    const answer = data.choices?.[0]?.message?.content?.trim() || "Hmm, I don't have a good answer for that one.";
-    res.status(200).json({ answer });
-  } catch (err) {
-    console.error('ask.js error:', err);
-    res.status(200).json({ answer: "I can't reach my brain right now. Try again shortly." });
   }
+
+  res.status(200).json({ answer: localAnswer(cleanQuestion), source: 'local-fallback' });
 };

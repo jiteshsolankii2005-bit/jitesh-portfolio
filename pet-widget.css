@@ -232,6 +232,29 @@
   text-decoration: none;
 }
 
+.pet-theme-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.pet-theme-btn {
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 7px 9px;
+}
+
+.pet-theme-btn:hover {
+  border-color: var(--ink);
+}
+
 .pet-chat-form {
   display: flex;
   border-top: 1px solid var(--line);
@@ -277,4 +300,45 @@
   .pet-widget.is-greeting::after {
     animation: none;
   }
+}
+
+html[data-byte-theme="midnight"] {
+  --bg: #111411;
+  --bg-soft: #1c231f;
+  --surface: #171d19;
+  --ink: #f6f0df;
+  --muted: #b8b5a8;
+  --line: rgba(246, 240, 223, 0.18);
+  --line-strong: rgba(246, 240, 223, 0.34);
+  --accent: #8bd8bd;
+  --accent-ink: #dff4eb;
+  --accent-soft: #173b30;
+  --rust: #df8d67;
+  --gold: #e1c76f;
+}
+
+html[data-byte-theme="mint"] {
+  --bg: #edf7f1;
+  --bg-soft: #dcece2;
+  --surface: #fffef8;
+  --ink: #13231c;
+  --muted: #51625a;
+  --accent: #0f7a58;
+  --accent-ink: #0a3f30;
+  --accent-soft: #d7efe5;
+}
+
+html[data-byte-theme="classic"] {
+  --bg: #f7f4ee;
+  --bg-soft: #efe9dd;
+  --surface: #fffdf9;
+  --ink: #16191e;
+  --muted: #5c6470;
+  --line: rgba(22, 25, 30, 0.14);
+  --line-strong: rgba(22, 25, 30, 0.34);
+  --accent: #18634f;
+  --accent-ink: #0d3c30;
+  --accent-soft: #e2ece6;
+  --rust: #a8461f;
+  --gold: #97751f;
 }

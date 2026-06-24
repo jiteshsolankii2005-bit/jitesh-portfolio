@@ -9,6 +9,7 @@
   if (!widget) return;
 
   const POS_KEY = 'pet-widget.position';
+  const THEME_KEY = 'byte.theme';
   const GREETINGS = [
     "Hey, I'm Byte 👋",
     'Ask me about Jitesh!',
@@ -28,6 +29,11 @@
   try {
     const saved = JSON.parse(localStorage.getItem(POS_KEY) || 'null');
     if (saved) applyPosition(saved);
+  } catch {}
+
+  try {
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    if (savedTheme) document.documentElement.dataset.byteTheme = savedTheme;
   } catch {}
 
   let dragging = false;
@@ -185,8 +191,33 @@
     return el;
   }
 
+  function addThemeMessage() {
+    const el = document.createElement('div');
+    el.className = 'pet-msg from-pet';
+    el.appendChild(document.createTextNode('Pick a mood. I will remember it on this browser.'));
+    const row = document.createElement('div');
+    row.className = 'pet-theme-row';
+    [
+      ['Classic', 'classic'],
+      ['Mint', 'mint'],
+      ['Midnight', 'midnight'],
+    ].forEach(([label, theme]) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'pet-theme-btn';
+      btn.textContent = label;
+      btn.addEventListener('click', () => setTheme(theme));
+      row.appendChild(btn);
+    });
+    el.appendChild(row);
+    messages.appendChild(el);
+    scrollMessagesToEnd();
+    return el;
+  }
+
   const PHOTO_INTENT = /\b(photo|picture|pic|selfie|face|look like|looks like|what does he look)\b/i;
   const CONTACT_INTENT = /\b(email|e-?mail|mail him|contact|reach out|get in touch|connect with him|send him a message)\b/i;
+  const THEME_INTENT = /\b(theme|dark|night|midnight|light|classic|green|mint|colour|color|background|mood)\b/i;
 
   function mailDraftUrl() {
     const to = 'jiteshsolankii2005@gmail.com';
@@ -201,6 +232,40 @@
       'Looking forward to hearing from you!',
     ].join('\n');
     return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+
+  function setTheme(theme) {
+    const safeTheme = ['classic', 'mint', 'midnight'].includes(theme) ? theme : 'classic';
+    document.documentElement.dataset.byteTheme = safeTheme;
+    try {
+      localStorage.setItem(THEME_KEY, safeTheme);
+    } catch {}
+    addMessage('pet', safeTheme === 'classic' ? 'Back to the original look.' : `Done. I changed the site mood to ${safeTheme}.`);
+  }
+
+  function handleLocalActions(question) {
+    if (CONTACT_INTENT.test(question)) {
+      addActionMessage('pet', 'Open email draft', mailDraftUrl());
+      window.setTimeout(() => {
+        window.location.href = mailDraftUrl();
+      }, 650);
+    }
+
+    if (THEME_INTENT.test(question)) {
+      if (/\b(dark|night|midnight)\b/i.test(question)) {
+        setTheme('midnight');
+      } else if (/\b(green|mint)\b/i.test(question)) {
+        setTheme('mint');
+      } else if (/\b(light|classic|reset|original)\b/i.test(question)) {
+        setTheme('classic');
+      } else {
+        addThemeMessage();
+      }
+    }
+
+    if (PHOTO_INTENT.test(question)) {
+      addImageMessage('pet', 'assets/jitesh-profile-4k.jpg', 'That\'s Jitesh!');
+    }
   }
 
   form?.addEventListener('submit', async (e) => {
@@ -224,14 +289,9 @@
       addMessage('pet', data.answer || "Hmm, I couldn't think of an answer to that — try asking me something else about Jitesh.");
     } catch (err) {
       loadingEl.remove();
-      addMessage('pet', "I can't reach my brain right now. Try again in a bit, or just email Jitesh directly.");
+      addMessage('pet', "My cloud brain is slow right now, but I can still help with contact, theme, projects, resume, blog, and Jitesh's basics.");
     }
 
-    if (PHOTO_INTENT.test(question)) {
-      addImageMessage('pet', 'assets/jitesh-profile-4k.jpg', 'That\'s Jitesh!');
-    }
-    if (CONTACT_INTENT.test(question)) {
-      addActionMessage('pet', '✉️ Email Jitesh', mailDraftUrl());
-    }
+    handleLocalActions(question);
   });
 })();
