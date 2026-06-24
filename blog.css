@@ -50,65 +50,14 @@
   cursor: pointer;
   text-align: left;
   padding: 0;
-  transition: box-shadow 240ms var(--ease-smooth), border-color 200ms var(--ease-smooth);
+  transition: transform 200ms var(--ease-smooth), box-shadow 240ms var(--ease-smooth), border-color 200ms var(--ease-smooth);
 }
 
 .blog-card:hover,
 .blog-card:focus-visible {
+  transform: translateY(-3px);
   box-shadow: var(--shadow);
   border-color: var(--line-strong);
-  z-index: 2;
-}
-
-.blog-card-face {
-  aspect-ratio: 1 / 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 10px;
-  padding: 22px;
-}
-
-.blog-card-face-meta {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 0.72rem;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.blog-repost-tag {
-  color: var(--rust);
-}
-
-.blog-card-title {
-  font-family: "Fraunces", Georgia, serif;
-  font-size: 1.12rem;
-  line-height: 1.35;
-  color: var(--ink);
-  margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.blog-card-detail {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 380ms var(--ease-smooth);
-}
-
-.blog-card:hover .blog-card-detail,
-.blog-card:focus-visible .blog-card-detail {
-  grid-template-rows: 1fr;
-}
-
-.blog-card-detail-inner {
-  overflow: hidden;
-  min-height: 0;
 }
 
 .blog-card-media {
@@ -125,6 +74,16 @@
   display: block;
 }
 
+.blog-card-media.is-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 2.4rem;
+  color: var(--accent);
+  opacity: 0.45;
+}
+
 .blog-card-count {
   position: absolute;
   bottom: 8px;
@@ -139,15 +98,40 @@
 
 .blog-card-body {
   padding: 16px 18px 20px;
-  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
 }
 
-.blog-card-full {
-  white-space: pre-line;
+.blog-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.blog-repost-tag {
+  color: var(--rust);
+}
+
+.blog-card-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.08rem;
+  line-height: 1.32;
   color: var(--ink);
+  margin: 0;
+}
+
+.blog-card-excerpt {
   font-size: 0.88rem;
-  line-height: 1.55;
-  margin: 0 0 10px;
+  color: var(--muted);
+  line-height: 1.5;
+  flex: 1;
 }
 
 .blog-card-readmore {

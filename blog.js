@@ -9,35 +9,30 @@
   let activeImages = [];
   let activeIndex = 0;
 
-  function fullTextOf(post) {
-    return post.paragraphs.join('\n\n');
+  function excerptOf(post) {
+    const text = (post.paragraphs[0] || '').replace(/\n/g, ' ');
+    return text.length > 140 ? text.slice(0, 137).trim() + '…' : text;
   }
 
   function cardHtml(post) {
-    const hasImages = post.images.length > 0;
     const cover = post.images[0];
-    const media = hasImages
+    const media = cover
       ? `<div class="blog-card-media"><img src="${cover}" alt="" loading="lazy">${
           post.images.length > 1 ? `<span class="blog-card-count">${post.images.length} photos</span>` : ''
         }</div>`
-      : '';
+      : `<div class="blog-card-media is-empty">JS</div>`;
 
     return `
       <button class="blog-card" type="button" data-post-id="${post.id}">
-        <div class="blog-card-face">
-          <span class="blog-card-face-meta">
-            ${post.relativeTime || 'LinkedIn'}${post.isRepost ? ' <span class="blog-repost-tag">· Repost</span>' : ''}
-          </span>
-          <h3 class="blog-card-title">${escapeHtml(post.title)}</h3>
-        </div>
-        <div class="blog-card-detail">
-          <div class="blog-card-detail-inner">
-            ${media}
-            <div class="blog-card-body">
-              <p class="blog-card-full">${escapeHtml(fullTextOf(post))}</p>
-              <span class="blog-card-readmore">Open full post →</span>
-            </div>
+        ${media}
+        <div class="blog-card-body">
+          <div class="blog-card-meta">
+            <span>${post.relativeTime || 'LinkedIn'}</span>
+            ${post.isRepost ? '<span class="blog-repost-tag">· Repost</span>' : ''}
           </div>
+          <h3 class="blog-card-title">${escapeHtml(post.title)}</h3>
+          <p class="blog-card-excerpt">${escapeHtml(excerptOf(post))}</p>
+          <span class="blog-card-readmore">Read post →</span>
         </div>
       </button>
     `;
