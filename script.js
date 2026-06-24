@@ -4,6 +4,39 @@ const words = ["accounts meet data.", "GST meets precision.", "Excel meets judgm
 let wordIndex = 0;
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const ROTATOR_INTERVAL_MS = 1700;
+const THEME_KEY = "byte.theme";
+
+function currentTheme() {
+  return document.documentElement.dataset.byteTheme || "classic";
+}
+
+function updateThemeButtons() {
+  const isDark = currentTheme() === "midnight";
+  document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+    button.textContent = isDark ? "☀" : "☾";
+    button.setAttribute("aria-label", isDark ? "Switch to light theme" : "Switch to dark theme");
+    button.title = isDark ? "Light theme" : "Dark theme";
+  });
+}
+
+function setSiteTheme(theme) {
+  const safeTheme = theme === "midnight" ? "midnight" : "classic";
+  document.documentElement.dataset.byteTheme = safeTheme;
+  try {
+    localStorage.setItem(THEME_KEY, safeTheme);
+  } catch {}
+  updateThemeButtons();
+}
+
+try {
+  const savedTheme = localStorage.getItem(THEME_KEY);
+  if (savedTheme) document.documentElement.dataset.byteTheme = savedTheme;
+} catch {}
+updateThemeButtons();
+
+document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+  button.addEventListener("click", () => setSiteTheme(currentTheme() === "midnight" ? "classic" : "midnight"));
+});
 
 function rotateWords() {
   if (!rotator) return;
@@ -31,6 +64,23 @@ function rotateBlogHeadline() {
 }
 
 if (blogRotator) window.setInterval(rotateBlogHeadline, ROTATOR_INTERVAL_MS);
+
+const projectRotator = document.querySelector("[data-project-rotator]");
+const projectHeadlines = [
+  "Work, credentials, and the AI stack behind it.",
+  "Practical finance builds, not just portfolio polish.",
+  "Excel, GST, documentation, and AI tools in one place.",
+  "The systems I use to learn faster and work cleaner.",
+];
+let projectHeadlineIndex = 0;
+
+function rotateProjectHeadline() {
+  if (!projectRotator) return;
+  projectHeadlineIndex = (projectHeadlineIndex + 1) % projectHeadlines.length;
+  projectRotator.textContent = projectHeadlines[projectHeadlineIndex];
+}
+
+if (projectRotator) window.setInterval(rotateProjectHeadline, ROTATOR_INTERVAL_MS);
 
 // Scroll-spy: highlight the nav link for the section currently in view.
 const navLinks = Array.from(document.querySelectorAll(".nav-links a"));

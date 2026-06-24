@@ -463,6 +463,7 @@ html[data-byte-theme="midnight"] .mini-metrics strong {
 
 html[data-byte-theme="midnight"] .button,
 html[data-byte-theme="midnight"] .header-action,
+html[data-byte-theme="midnight"] .theme-toggle,
 html[data-byte-theme="midnight"] .nav-links a,
 html[data-byte-theme="midnight"] .skill-filters button,
 html[data-byte-theme="midnight"] .ai-tools-filters button,
@@ -476,6 +477,7 @@ html[data-byte-theme="midnight"] .to-top {
 html[data-byte-theme="midnight"] .brand-mark,
 html[data-byte-theme="midnight"] .button.primary,
 html[data-byte-theme="midnight"] .header-action,
+html[data-byte-theme="midnight"] .theme-toggle,
 html[data-byte-theme="midnight"] .skill-filters button.is-active,
 html[data-byte-theme="midnight"] .ai-tools-filters button.is-active,
 html[data-byte-theme="midnight"] .pet-action-btn,
@@ -593,6 +595,7 @@ html[data-byte-theme="midnight"] textarea::placeholder {
 
 html[data-byte-theme="midnight"] .button:hover,
 html[data-byte-theme="midnight"] .header-action:hover,
+html[data-byte-theme="midnight"] .theme-toggle:hover,
 html[data-byte-theme="midnight"] .project-card:hover,
 html[data-byte-theme="midnight"] .feature-card:hover,
 html[data-byte-theme="midnight"] .story-card:hover,

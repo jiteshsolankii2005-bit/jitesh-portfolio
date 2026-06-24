@@ -306,6 +306,12 @@
     try {
       localStorage.setItem(THEME_KEY, safeTheme);
     } catch {}
+    document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
+      const isDark = safeTheme === 'midnight';
+      button.textContent = isDark ? '☀' : '☾';
+      button.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+      button.title = isDark ? 'Light theme' : 'Dark theme';
+    });
     addMessage('pet', safeTheme === 'classic' ? 'Back to the original look.' : `Done. I changed the site mood to ${safeTheme}.`);
   }
 
