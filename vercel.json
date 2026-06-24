@@ -1,5 +1,7 @@
 {
   "rewrites": [
-    { "source": "/dashboard", "destination": "/api/personal" }
+    { "source": "/dashboard", "destination": "/api/personal" },
+    { "source": "/dashboard/tabs", "destination": "/api/personal-tabs" },
+    { "source": "/dashboard/course", "destination": "/api/personal-course" }
   ]
 }
