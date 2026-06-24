@@ -221,11 +221,20 @@
   font-size: 0.78rem;
   font-weight: 700;
   color: #fff;
+  background: #fff;
+  border: 1px solid var(--line);
+  overflow: hidden;
 }
 
-.ai-tool-badge.is-accent { background: var(--accent); }
-.ai-tool-badge.is-rust { background: var(--rust); }
-.ai-tool-badge.is-gold { background: var(--gold); }
+.ai-tool-badge img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.ai-tool-badge:not(:has(img)).is-accent { background: var(--accent); border-color: var(--accent); }
+.ai-tool-badge:not(:has(img)).is-rust { background: var(--rust); border-color: var(--rust); }
+.ai-tool-badge:not(:has(img)).is-gold { background: var(--gold); border-color: var(--gold); }
 
 .ai-tool-info h3 {
   margin: 0;

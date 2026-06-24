@@ -784,8 +784,18 @@ main, .site-header, .site-footer {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  cursor: default;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
   transition: border-color 320ms var(--ease-smooth), transform 320ms var(--ease-smooth), box-shadow 360ms var(--ease-smooth);
+}
+
+.project-open {
+  margin-top: 4px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-ink);
 }
 
 .project-card:hover,

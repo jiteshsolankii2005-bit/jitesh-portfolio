@@ -18,9 +18,14 @@
   function cardHtml(tool, index) {
     const colorClass = PALETTE[index % PALETTE.length];
     const tagsHtml = tool.tags.map((t) => `<span class="ai-tool-tag">${t}</span>`).join("");
+    const initials = initialsOf(tool.name);
+    const logoSrc = tool.domain ? `assets/ai-logos/${tool.domain.replace(/\./g, "-")}.png` : "";
+    const badge = logoSrc
+      ? `<span class="ai-tool-badge is-${colorClass}" data-fallback="${initials}"><img src="${logoSrc}" alt="" loading="lazy" onerror="this.parentElement.textContent=this.parentElement.dataset.fallback;"></span>`
+      : `<span class="ai-tool-badge is-${colorClass}">${initials}</span>`;
     return `
       <article class="ai-tool-card" data-tags="${tool.tags.join(",")}" tabindex="0">
-        <span class="ai-tool-badge is-${colorClass}">${initialsOf(tool.name)}</span>
+        ${badge}
         <div class="ai-tool-info">
           <h3>${tool.name}</h3>
           <span class="ai-tool-maker">${tool.maker} · ${tool.category}</span>
