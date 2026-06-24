@@ -25,12 +25,17 @@
 }
 
 .pet-widget.is-dragging img {
-  animation: none;
+  animation: pet-carried 0.35s ease-in-out infinite;
 }
 
 @keyframes pet-bob {
   0%, 100% { transform: translateY(0) rotate(-2deg); }
   50% { transform: translateY(-6px) rotate(2deg); }
+}
+
+@keyframes pet-carried {
+  0%, 100% { transform: scale(1.08) rotate(-8deg); }
+  50% { transform: scale(1.12) rotate(8deg); }
 }
 
 .pet-bubble {

@@ -10,10 +10,11 @@
 
   const POS_KEY = 'pet-widget.position';
   const GREETINGS = [
+    "Hey, I'm Byte 👋",
     'Ask me about Jitesh!',
-    'Curious about my human?',
-    'Drag me anywhere 👋',
-    'Got a question about him?',
+    'Curious about my friend?',
+    'Drag me anywhere!',
+    'Got a question for me?',
   ];
 
   function applyPosition(pos) {
@@ -114,7 +115,7 @@
     addMessage('user', question);
     input.value = '';
 
-    const loadingEl = addMessage('pet', 'thinking…');
+    const loadingEl = addMessage('pet', 'Byte is thinking…');
     loadingEl.classList.add('is-loading');
 
     try {
@@ -125,7 +126,7 @@
       });
       const data = await res.json();
       loadingEl.remove();
-      addMessage('pet', data.answer || "I couldn't think of an answer to that — try asking something else about Jitesh.");
+      addMessage('pet', data.answer || "Hmm, I couldn't think of an answer to that — try asking me something else about Jitesh.");
     } catch (err) {
       loadingEl.remove();
       addMessage('pet', "I can't reach my brain right now. Try again in a bit, or just email Jitesh directly.");

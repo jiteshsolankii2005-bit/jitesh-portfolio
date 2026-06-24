@@ -47,8 +47,8 @@ body {
 .bg-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.4;
+  filter: blur(45px);
+  opacity: 0.65;
   will-change: transform;
 }
 
@@ -57,8 +57,8 @@ body {
   height: 38vmax;
   left: -10vmax;
   top: -12vmax;
-  background: radial-gradient(circle, var(--accent-soft), transparent 70%);
-  animation: bg-drift-1 26s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(24, 99, 79, 0.32), transparent 70%);
+  animation: bg-drift-1 16s ease-in-out infinite;
 }
 
 .bg-blob-2 {
@@ -66,8 +66,8 @@ body {
   height: 30vmax;
   right: -8vmax;
   top: 18vmax;
-  background: radial-gradient(circle, rgba(168, 70, 31, 0.16), transparent 70%);
-  animation: bg-drift-2 32s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(168, 70, 31, 0.3), transparent 70%);
+  animation: bg-drift-2 20s ease-in-out infinite;
 }
 
 .bg-blob-3 {
@@ -75,8 +75,8 @@ body {
   height: 34vmax;
   left: 22vmax;
   bottom: -16vmax;
-  background: radial-gradient(circle, rgba(151, 117, 31, 0.14), transparent 70%);
-  animation: bg-drift-3 38s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(151, 117, 31, 0.28), transparent 70%);
+  animation: bg-drift-3 24s ease-in-out infinite;
 }
 
 @keyframes bg-drift-1 {
