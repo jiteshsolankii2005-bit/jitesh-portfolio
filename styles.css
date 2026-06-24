@@ -1,3 +1,7 @@
+@view-transition {
+  navigation: auto;
+}
+
 :root {
   color-scheme: light;
   --bg: #f7f4ee;
@@ -34,6 +38,18 @@ body {
   color: var(--ink);
   font-family: "Instrument Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   letter-spacing: 0;
+  animation: page-fade-in 460ms var(--ease-smooth);
+}
+
+@keyframes page-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+  }
 }
 
 .bg-animation {
@@ -44,65 +60,40 @@ body {
   pointer-events: none;
 }
 
-.bg-blob {
+.bg-symbol {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(45px);
-  opacity: 0.65;
-  will-change: transform;
+  bottom: -10vh;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+  will-change: transform, opacity;
+  animation-name: bg-float-up;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
 }
 
-.bg-blob-1 {
-  width: 38vmax;
-  height: 38vmax;
-  left: -10vmax;
-  top: -12vmax;
-  background: radial-gradient(circle, rgba(13, 84, 65, 0.48), transparent 70%);
-  animation: bg-drift-1 18s ease-in-out infinite;
+.bg-symbol:nth-child(odd) {
+  color: rgba(13, 84, 65, 0.4);
 }
 
-.bg-blob-2 {
-  width: 30vmax;
-  height: 30vmax;
-  right: -8vmax;
-  top: 18vmax;
-  background: radial-gradient(circle, rgba(148, 54, 19, 0.46), transparent 70%);
-  animation: bg-drift-2 23s ease-in-out infinite;
+.bg-symbol:nth-child(3n) {
+  color: rgba(148, 54, 19, 0.38);
 }
 
-.bg-blob-3 {
-  width: 34vmax;
-  height: 34vmax;
-  left: 22vmax;
-  bottom: -16vmax;
-  background: radial-gradient(circle, rgba(124, 93, 16, 0.44), transparent 70%);
-  animation: bg-drift-3 27s ease-in-out infinite;
+.bg-symbol:nth-child(3n + 1) {
+  color: rgba(124, 93, 16, 0.36);
 }
 
-@keyframes bg-drift-1 {
-  0% { transform: translate(0, 0) scale(1) rotate(0deg); filter: blur(45px) hue-rotate(0deg); }
-  33% { transform: translate(6vmax, 8vmax) scale(1.12) rotate(9deg); filter: blur(45px) hue-rotate(16deg); }
-  66% { transform: translate(-3vmax, 5vmax) scale(0.95) rotate(-6deg); filter: blur(45px) hue-rotate(-10deg); }
-  100% { transform: translate(0, 0) scale(1) rotate(0deg); filter: blur(45px) hue-rotate(0deg); }
-}
-
-@keyframes bg-drift-2 {
-  0% { transform: translate(0, 0) scale(1) rotate(0deg); filter: blur(45px) hue-rotate(0deg); }
-  33% { transform: translate(-7vmax, 6vmax) scale(1.08) rotate(-10deg); filter: blur(45px) hue-rotate(-14deg); }
-  66% { transform: translate(4vmax, -4vmax) scale(0.96) rotate(7deg); filter: blur(45px) hue-rotate(12deg); }
-  100% { transform: translate(0, 0) scale(1) rotate(0deg); filter: blur(45px) hue-rotate(0deg); }
-}
-
-@keyframes bg-drift-3 {
-  0% { transform: translate(0, 0) scale(1) rotate(0deg); filter: blur(45px) hue-rotate(0deg); }
-  33% { transform: translate(5vmax, -7vmax) scale(1.15) rotate(8deg); filter: blur(45px) hue-rotate(14deg); }
-  66% { transform: translate(-4vmax, -3vmax) scale(0.94) rotate(-9deg); filter: blur(45px) hue-rotate(-12deg); }
-  100% { transform: translate(0, 0) scale(1) rotate(0deg); filter: blur(45px) hue-rotate(0deg); }
+@keyframes bg-float-up {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { transform: translateY(-115vh) rotate(20deg); opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bg-blob {
+  .bg-symbol {
     animation: none;
+    display: none;
   }
 }
 
@@ -166,7 +157,7 @@ main, .site-header, .site-footer {
   padding: 16px 24px;
   background: var(--bg);
   border-bottom: 1px solid transparent;
-  transition: border-color 180ms ease, box-shadow 180ms ease;
+  transition: border-color 180ms var(--ease-smooth), box-shadow 180ms var(--ease-smooth);
 }
 
 .site-header.is-scrolled {
@@ -244,7 +235,7 @@ main, .site-header, .site-footer {
   color: var(--muted);
   font-size: 0.92rem;
   font-weight: 700;
-  transition: color 180ms ease;
+  transition: color 180ms var(--ease-smooth);
 }
 
 .header-link:hover {
@@ -395,7 +386,7 @@ main, .site-header, .site-footer {
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
   background: var(--surface);
-  transition: box-shadow 220ms ease;
+  transition: box-shadow 220ms var(--ease-smooth);
 }
 
 .portrait-frame:hover {
@@ -444,7 +435,7 @@ main, .site-header, .site-footer {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  transition: border-color 180ms ease, transform 180ms ease;
+  transition: border-color 180ms var(--ease-smooth), transform 180ms var(--ease-smooth);
 }
 
 .mini-metrics div:hover {
@@ -806,7 +797,7 @@ main, .site-header, .site-footer {
   cursor: pointer;
   font-weight: 500;
   font-size: 0.86rem;
-  transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
+  transition: border-color 180ms var(--ease-smooth), background 180ms var(--ease-smooth), color 180ms var(--ease-smooth);
 }
 
 .skill-filters button:hover {
@@ -955,7 +946,7 @@ main, .site-header, .site-footer {
   font-weight: 700;
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity 180ms ease, transform 180ms ease;
+  transition: opacity 180ms var(--ease-smooth), transform 180ms var(--ease-smooth);
   pointer-events: none;
 }
 
