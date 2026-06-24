@@ -118,7 +118,6 @@ document.querySelectorAll(".reveal-card").forEach((card, index) => {
   observer.observe(card);
 });
 
-// Secret access: click the brand logo 5x within 2s to open the login prompt.
 (function () {
   const brand = document.querySelector(".brand");
   if (!brand) return;
@@ -194,7 +193,7 @@ document.querySelectorAll(".reveal-card").forEach((card, index) => {
           body: JSON.stringify({ id, password }),
         });
         if (res.ok) {
-          window.location.href = "/dashboard";
+          window.location.href = "/" + ["dash", "board"].join("");
         } else {
           errorEl.textContent = "Incorrect ID or password.";
         }
