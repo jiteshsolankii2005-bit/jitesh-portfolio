@@ -184,6 +184,10 @@
     const link = document.createElement('a');
     link.className = 'pet-action-btn';
     link.href = href;
+    if (/^https?:\/\//i.test(href)) {
+      link.target = '_blank';
+      link.rel = 'noreferrer';
+    }
     link.textContent = label;
     el.appendChild(link);
     messages.appendChild(el);
@@ -219,20 +223,81 @@
   const CONTACT_INTENT = /\b(email|e-?mail|mail him|contact|reach out|get in touch|connect with him|send him a message)\b/i;
   const HIRE_INTENT = /\b(hire|hiring|recruit|recruiter|job|opportunity|work with|should i hire)\b/i;
   const THEME_INTENT = /\b(theme|dark|night|midnight|light|classic|green|mint|colour|color|background|mood)\b/i;
+  const ACTION_INTENT = /\b(open|show|view|take me|go to|download|see)\b/i;
+  const RESUME_INTENT = /\b(resume|cv)\b/i;
+  const PROJECTS_INTENT = /\b(projects?|work samples?|portfolio work)\b/i;
+  const BLOG_INTENT = /\b(blog|posts?|articles?|linkedin activity|notes)\b/i;
+  const LINKEDIN_INTENT = /\b(linkedin|profile)\b/i;
 
-  function mailDraftUrl() {
+  function draftParts() {
     const to = 'jiteshsolankii2005@gmail.com';
     const subject = 'Hey, wanted to connect!';
     const body = [
       'Hi Jitesh,',
       '',
-      "I came across your portfolio (and met Byte!) and wanted to reach out and connect.",
+      'I came across your portfolio and wanted to connect with you.',
       '',
       '[Add your message here]',
       '',
       'Looking forward to hearing from you!',
     ].join('\n');
+    return { to, subject, body };
+  }
+
+  function mailDraftUrl() {
+    const { to, subject, body } = draftParts();
     return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+
+  function gmailDraftUrl() {
+    const { to, subject, body } = draftParts();
+    const params = new URLSearchParams({
+      view: 'cm',
+      fs: '1',
+      to,
+      su: subject,
+      body,
+    });
+    return `https://mail.google.com/mail/?${params.toString()}`;
+  }
+
+  function openContactDraft() {
+    addActionMessage('pet', 'Open Gmail draft', gmailDraftUrl());
+    addActionMessage('pet', 'Open email app draft', mailDraftUrl());
+    const opened = window.open(gmailDraftUrl(), '_blank', 'noopener,noreferrer');
+    if (!opened) {
+      addMessage('pet', 'Your browser blocked the draft popup. Use one of the buttons above.');
+    }
+  }
+
+  function openVisitorAction(url, blockedMessage) {
+    const opened = window.open(url, '_blank', 'noopener,noreferrer');
+    if (!opened && blockedMessage) addMessage('pet', blockedMessage);
+  }
+
+  function handlePageActions(question) {
+    const wantsAction = ACTION_INTENT.test(question);
+
+    if (RESUME_INTENT.test(question)) {
+      addActionMessage('pet', 'Open resume PDF', 'assets/Jitesh_Solanki_Resume.pdf');
+      if (wantsAction) openVisitorAction('assets/Jitesh_Solanki_Resume.pdf', 'Your browser blocked the resume popup. Use the button above.');
+    }
+
+    if (PROJECTS_INTENT.test(question)) {
+      addActionMessage('pet', 'Open Projects', 'projects.html');
+      if (wantsAction) window.location.href = 'projects.html';
+    }
+
+    if (BLOG_INTENT.test(question)) {
+      addActionMessage('pet', 'Open Blog', 'blog.html');
+      if (wantsAction) window.location.href = 'blog.html';
+    }
+
+    if (LINKEDIN_INTENT.test(question)) {
+      const linkedinUrl = 'https://www.linkedin.com/in/jitesh-solanki-805598375/';
+      addActionMessage('pet', 'Open LinkedIn', linkedinUrl);
+      if (wantsAction) openVisitorAction(linkedinUrl, 'Your browser blocked LinkedIn. Use the button above.');
+    }
   }
 
   function setTheme(theme) {
@@ -246,15 +311,14 @@
 
   function handleLocalActions(question) {
     if (CONTACT_INTENT.test(question)) {
-      addActionMessage('pet', 'Open email draft', mailDraftUrl());
-      window.setTimeout(() => {
-        window.location.href = mailDraftUrl();
-      }, 650);
+      openContactDraft();
     }
 
     if (HIRE_INTENT.test(question) && !CONTACT_INTENT.test(question)) {
-      addActionMessage('pet', 'Email Jitesh about an opportunity', mailDraftUrl());
+      addActionMessage('pet', 'Email Jitesh about an opportunity', gmailDraftUrl());
     }
+
+    handlePageActions(question);
 
     if (THEME_INTENT.test(question)) {
       if (/\b(dark|night|midnight)\b/i.test(question)) {
