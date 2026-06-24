@@ -1,4 +1,4 @@
-const { isValidSession } = require('../lib/session');
+const { isDashboardAuthorized } = require('../lib/session');
 const { renderShell } = require('../lib/dashboard-layout');
 
 // Course structure synthesized from the user's own CA_Training_Complete.pdf
@@ -278,7 +278,7 @@ const SCRIPT = `
 `;
 
 module.exports = async function handler(req, res) {
-  if (!isValidSession(req.headers.cookie)) {
+  if (!isDashboardAuthorized(req)) {
     res.status(404).end('Not Found');
     return;
   }
