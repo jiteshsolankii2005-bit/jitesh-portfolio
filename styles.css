@@ -58,7 +58,7 @@ body {
   left: -10vmax;
   top: -12vmax;
   background: radial-gradient(circle, rgba(24, 99, 79, 0.32), transparent 70%);
-  animation: bg-drift-1 16s ease-in-out infinite;
+  animation: bg-drift-1 18s ease-in-out infinite;
 }
 
 .bg-blob-2 {
@@ -67,7 +67,7 @@ body {
   right: -8vmax;
   top: 18vmax;
   background: radial-gradient(circle, rgba(168, 70, 31, 0.3), transparent 70%);
-  animation: bg-drift-2 20s ease-in-out infinite;
+  animation: bg-drift-2 23s ease-in-out infinite;
 }
 
 .bg-blob-3 {
@@ -76,22 +76,28 @@ body {
   left: 22vmax;
   bottom: -16vmax;
   background: radial-gradient(circle, rgba(151, 117, 31, 0.28), transparent 70%);
-  animation: bg-drift-3 24s ease-in-out infinite;
+  animation: bg-drift-3 27s ease-in-out infinite;
 }
 
 @keyframes bg-drift-1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(6vmax, 8vmax) scale(1.12); }
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); filter: blur(45px) hue-rotate(0deg); }
+  33% { transform: translate(6vmax, 8vmax) scale(1.12) rotate(9deg); filter: blur(45px) hue-rotate(16deg); }
+  66% { transform: translate(-3vmax, 5vmax) scale(0.95) rotate(-6deg); filter: blur(45px) hue-rotate(-10deg); }
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); filter: blur(45px) hue-rotate(0deg); }
 }
 
 @keyframes bg-drift-2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-7vmax, 6vmax) scale(1.08); }
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); filter: blur(45px) hue-rotate(0deg); }
+  33% { transform: translate(-7vmax, 6vmax) scale(1.08) rotate(-10deg); filter: blur(45px) hue-rotate(-14deg); }
+  66% { transform: translate(4vmax, -4vmax) scale(0.96) rotate(7deg); filter: blur(45px) hue-rotate(12deg); }
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); filter: blur(45px) hue-rotate(0deg); }
 }
 
 @keyframes bg-drift-3 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(5vmax, -7vmax) scale(1.15); }
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); filter: blur(45px) hue-rotate(0deg); }
+  33% { transform: translate(5vmax, -7vmax) scale(1.15) rotate(8deg); filter: blur(45px) hue-rotate(14deg); }
+  66% { transform: translate(-4vmax, -3vmax) scale(0.94) rotate(-9deg); filter: blur(45px) hue-rotate(-12deg); }
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); filter: blur(45px) hue-rotate(0deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
