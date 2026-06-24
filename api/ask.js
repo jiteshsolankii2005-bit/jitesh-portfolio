@@ -31,41 +31,27 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  const apiKey = process.env.GROQ_API_KEY;
-  if (!apiKey) {
-    res.status(200).json({
-      answer:
-        "My AI brain isn't wired up yet! Jitesh needs to add a GROQ_API_KEY in the site's settings. In the meantime, email him directly at jiteshsolankii2005@gmail.com.",
-    });
-    return;
-  }
-
   try {
-    const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const aiRes = await fetch('https://text.pollinations.ai/openai', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
+        model: 'openai',
         messages: [
           { role: 'system', content: CONTEXT },
           { role: 'user', content: question.trim().slice(0, 500) },
         ],
-        temperature: 0.6,
-        max_tokens: 220,
       }),
     });
 
-    if (!groqRes.ok) {
-      const errText = await groqRes.text();
-      console.error('Groq API error:', groqRes.status, errText);
+    if (!aiRes.ok) {
+      const errText = await aiRes.text();
+      console.error('Pollinations API error:', aiRes.status, errText);
       res.status(200).json({ answer: "My brain hiccuped on that one. Try asking again in a moment?" });
       return;
     }
 
-    const data = await groqRes.json();
+    const data = await aiRes.json();
     const answer = data.choices?.[0]?.message?.content?.trim() || "Hmm, I don't have a good answer for that one.";
     res.status(200).json({ answer });
   } catch (err) {

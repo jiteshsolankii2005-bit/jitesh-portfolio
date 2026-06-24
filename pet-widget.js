@@ -90,13 +90,7 @@
   function toggleChat() {
     const open = chat.classList.toggle('is-open');
     chat.setAttribute('aria-hidden', open ? 'false' : 'true');
-    if (open) {
-      input.focus();
-      if (!messages.dataset.greeted) {
-        addMessage('pet', "Hey! I'm Jitesh's pet. Ask me anything about him — his work, skills, background, whatever.");
-        messages.dataset.greeted = '1';
-      }
-    }
+    if (open) input.focus();
   }
 
   closeBtn?.addEventListener('click', () => {

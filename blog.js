@@ -29,7 +29,9 @@
 
     const title = hasImages ? `<h3 class="blog-card-title">${escapeHtml(post.title)}</h3>` : '';
     const bodyText = hasImages
-      ? `<p class="blog-card-excerpt">${escapeHtml(excerptOf(post))}</p><span class="blog-card-readmore">Read post →</span>`
+      ? `<p class="blog-card-excerpt">${escapeHtml(excerptOf(post))}</p>
+         <div class="blog-card-expand"><p class="blog-card-full">${escapeHtml(fullTextOf(post))}</p></div>
+         <span class="blog-card-readmore">Read post →</span>`
       : `<p class="blog-card-excerpt blog-card-full">${escapeHtml(fullTextOf(post))}</p>`;
 
     return `
