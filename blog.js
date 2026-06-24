@@ -14,25 +14,34 @@
     return text.length > 140 ? text.slice(0, 137).trim() + '…' : text;
   }
 
+  function fullTextOf(post) {
+    return post.paragraphs.join('\n\n');
+  }
+
   function cardHtml(post) {
+    const hasImages = post.images.length > 0;
     const cover = post.images[0];
-    const media = cover
+    const media = hasImages
       ? `<div class="blog-card-media"><img src="${cover}" alt="" loading="lazy">${
           post.images.length > 1 ? `<span class="blog-card-count">${post.images.length} photos</span>` : ''
         }</div>`
-      : `<div class="blog-card-media is-empty">JS</div>`;
+      : '';
+
+    const title = hasImages ? `<h3 class="blog-card-title">${escapeHtml(post.title)}</h3>` : '';
+    const bodyText = hasImages
+      ? `<p class="blog-card-excerpt">${escapeHtml(excerptOf(post))}</p><span class="blog-card-readmore">Read post →</span>`
+      : `<p class="blog-card-excerpt blog-card-full">${escapeHtml(fullTextOf(post))}</p>`;
 
     return `
-      <button class="blog-card" type="button" data-post-id="${post.id}">
+      <button class="blog-card${hasImages ? '' : ' blog-card--text-only'}" type="button" data-post-id="${post.id}">
         ${media}
         <div class="blog-card-body">
           <div class="blog-card-meta">
             <span>${post.relativeTime || 'LinkedIn'}</span>
             ${post.isRepost ? '<span class="blog-repost-tag">· Repost</span>' : ''}
           </div>
-          <h3 class="blog-card-title">${escapeHtml(post.title)}</h3>
-          <p class="blog-card-excerpt">${escapeHtml(excerptOf(post))}</p>
-          <span class="blog-card-readmore">Read post →</span>
+          ${title}
+          ${bodyText}
         </div>
       </button>
     `;

@@ -15,8 +15,14 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="pet-widget.css" />
   </head>
   <body>
+    <div class="bg-animation" aria-hidden="true">
+      <span class="bg-blob bg-blob-1"></span>
+      <span class="bg-blob bg-blob-2"></span>
+      <span class="bg-blob bg-blob-3"></span>
+    </div>
     <div class="scroll-progress" data-progress aria-hidden="true"><span></span></div>
 
     <header class="site-header" data-header>
@@ -33,7 +39,7 @@
       </nav>
       <div class="header-actions">
         <a class="header-link" href="mailto:jiteshsolankii2005@gmail.com">Email</a>
-        <a class="header-action" href="assets/Jitesh_Solanki_Resume_ATS.pdf" download>Resume</a>
+        <a class="header-action" href="assets/Jitesh_Solanki_Resume.pdf" download>Resume</a>
       </div>
     </header>
 
@@ -54,7 +60,7 @@
             corners.
           </p>
           <div class="hero-actions" aria-label="Primary actions">
-            <a class="button primary" href="assets/Jitesh_Solanki_Resume_ATS.pdf" download>Download resume</a>
+            <a class="button primary" href="assets/Jitesh_Solanki_Resume.pdf" download>Download resume</a>
             <a class="button secondary" href="https://www.linkedin.com/in/jitesh-solanki-805598375/" target="_blank" rel="noreferrer">LinkedIn</a>
             <a class="button ghost" href="mailto:jiteshsolankii2005@gmail.com">Email me</a>
           </div>
@@ -360,22 +366,22 @@
               <button type="button" data-filter="ai">AI</button>
             </div>
             <div class="skill-cloud">
-              <span data-skill="accounts">Tally ERP / Prime</span>
-              <span data-skill="accounts">Bookkeeping</span>
-              <span data-skill="accounts">GST</span>
-              <span data-skill="accounts">GSTR-1</span>
-              <span data-skill="accounts">GSTR-3B</span>
-              <span data-skill="accounts">Account reconciliation</span>
-              <span data-skill="accounts">Accounts payable</span>
-              <span data-skill="accounts">Accounts receivable</span>
-              <span data-skill="data">MS Excel</span>
-              <span data-skill="data">Data analysis</span>
-              <span data-skill="data">MIS thinking</span>
-              <span data-skill="data">Cash flow tracking</span>
-              <span data-skill="data">Documentation</span>
-              <span data-skill="ai">AI tools</span>
-              <span data-skill="ai">Workflow cleanup</span>
-              <span data-skill="ai">Finance automation awareness</span>
+              <span tabindex="0" data-skill="accounts" data-pct="78">Tally ERP / Prime<span class="skill-bar-wrap"><span class="skill-bar" style="--pct:78%"></span><span class="skill-pct">78%</span></span></span>
+              <span tabindex="0" data-skill="accounts" data-pct="72">Bookkeeping<span class="skill-bar-wrap"><span class="skill-bar" style="--pct:72%"></span><span class="skill-pct">72%</span></span></span>
+              <span tabindex="0" data-skill="accounts" data-pct="75">GST<span class="skill-bar-wrap"><span class="skill-bar" style="--pct:75%"></span><span class="skill-pct">75%</span></span></span>
+              <span tabindex="0" data-skill="accounts" data-pct="68">GSTR-1<span class="skill-bar-wrap"><span class="skill-bar" style="--pct:68%"></span><span class="skill-pct">68%</span></span></span>
+              <span tabindex="0" data-skill="accounts" data-pct="66">GSTR-3B<span class="skill-bar-wrap"><span class="skill-bar" style="--pct:66%"></span><span class="skill-pct">66%</span></span></span>
+              <span tabindex="0" data-skill="accounts" data-pct="70">Account reconciliation<span class="skill-bar-wrap"><span class="skill-bar" style="--pct:70%"></span><span class="skill-pct">70%</span></span></span>
+              <span tabindex="0" data-skill="accounts" data-pct="64">Accounts payable<span class="skill-bar-wrap"><span class="skill-bar" style="--pct:64%"></span><span class="skill-pct">64%</span></span></span>
+              <span tabindex="0" data-skill="accounts" data-pct="62">Accounts receivable<span class="skill-bar-wrap"><span class="skill-bar" style="--pct:62%"></span><span class="skill-pct">62%</span></span></span>
+              <span tabindex="0" data-skill="data" data-pct="80">MS Excel<span class="skill-bar-wrap"><span class="skill-bar" style="--pct:80%"></span><span class="skill-pct">80%</span></span></span>
+              <span tabindex="0" data-skill="data" data-pct="65">Data analysis<span class="skill-bar-wrap"><span class="skill-bar" style="--pct:65%"></span><span class="skill-pct">65%</span></span></span>
+              <span tabindex="0" data-skill="data" data-pct="58">MIS thinking<span class="skill-bar-wrap"><span class="skill-bar" style="--pct:58%"></span><span class="skill-pct">58%</span></span></span>
+              <span tabindex="0" data-skill="data" data-pct="60">Cash flow tracking<span class="skill-bar-wrap"><span class="skill-bar" style="--pct:60%"></span><span class="skill-pct">60%</span></span></span>
+              <span tabindex="0" data-skill="data" data-pct="67">Documentation<span class="skill-bar-wrap"><span class="skill-bar" style="--pct:67%"></span><span class="skill-pct">67%</span></span></span>
+              <span tabindex="0" data-skill="ai" data-pct="74">AI tools<span class="skill-bar-wrap"><span class="skill-bar" style="--pct:74%"></span><span class="skill-pct">74%</span></span></span>
+              <span tabindex="0" data-skill="ai" data-pct="56">Workflow cleanup<span class="skill-bar-wrap"><span class="skill-bar" style="--pct:56%"></span><span class="skill-pct">56%</span></span></span>
+              <span tabindex="0" data-skill="ai" data-pct="52">Finance automation awareness<span class="skill-bar-wrap"><span class="skill-bar" style="--pct:52%"></span><span class="skill-pct">52%</span></span></span>
             </div>
           </div>
         </div>
@@ -389,7 +395,7 @@
           <a class="button primary" href="mailto:jiteshsolankii2005@gmail.com">Email me</a>
           <button class="button secondary" type="button" data-copy-email>Copy email</button>
           <a class="button secondary" href="https://www.linkedin.com/in/jitesh-solanki-805598375/" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a class="button ghost" href="assets/Jitesh_Solanki_Resume_ATS.pdf" download>ATS resume</a>
+          <a class="button ghost" href="assets/Jitesh_Solanki_Resume.pdf" download>Resume (PDF)</a>
         </div>
       </section>
     </main>
@@ -402,5 +408,22 @@
     <div class="toast" data-toast>Email copied</div>
     <button class="to-top" type="button" data-to-top aria-label="Back to top">↑</button>
     <script src="script.js"></script>
+
+    <div class="pet-widget" id="pet-widget">
+      <img src="assets/pet.png" alt="Ask my pet about Jitesh" draggable="false">
+      <div class="pet-bubble" id="pet-bubble"></div>
+    </div>
+    <div class="pet-chat" id="pet-chat" aria-hidden="true">
+      <div class="pet-chat-header">
+        <span>Ask about Jitesh</span>
+        <button type="button" id="pet-chat-close" aria-label="Close chat">&times;</button>
+      </div>
+      <div class="pet-chat-messages" id="pet-chat-messages"></div>
+      <form class="pet-chat-form" id="pet-chat-form">
+        <input type="text" id="pet-chat-input" placeholder="Ask something about Jitesh…" autocomplete="off">
+        <button type="submit">Send</button>
+      </form>
+    </div>
+    <script src="pet-widget.js"></script>
   </body>
 </html>

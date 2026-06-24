@@ -3,6 +3,7 @@ const rotator = document.querySelector("[data-rotator]");
 const words = ["accounts meet data.", "GST meets precision.", "Excel meets judgment.", "AI supports finance."];
 let wordIndex = 0;
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const ROTATOR_INTERVAL_MS = 1700;
 
 function rotateWords() {
   if (!rotator) return;
@@ -10,7 +11,26 @@ function rotateWords() {
   rotator.textContent = words[wordIndex];
 }
 
-window.setInterval(rotateWords, 2300);
+window.setInterval(rotateWords, ROTATOR_INTERVAL_MS);
+
+const blogRotator = document.querySelector("[data-blog-rotator]");
+const blogHeadlines = [
+  "Notes from the ledger.",
+  "Thoughts between debits and credits.",
+  "Where GST meets good sense.",
+  "Reconciled thoughts, unfiled drafts.",
+  "The audit trail of my brain.",
+  "Ledger entries for life outside Tally.",
+];
+let blogHeadlineIndex = 0;
+
+function rotateBlogHeadline() {
+  if (!blogRotator) return;
+  blogHeadlineIndex = (blogHeadlineIndex + 1) % blogHeadlines.length;
+  blogRotator.textContent = blogHeadlines[blogHeadlineIndex];
+}
+
+if (blogRotator) window.setInterval(rotateBlogHeadline, ROTATOR_INTERVAL_MS);
 
 // Scroll-spy: highlight the nav link for the section currently in view.
 const navLinks = Array.from(document.querySelectorAll(".nav-links a"));

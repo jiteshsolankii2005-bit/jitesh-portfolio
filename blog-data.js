@@ -909,25 +909,6 @@ window.BLOG_POSTS = [
     ]
   },
   {
-    "id": 43,
-    "title": "TDS/TCS forms are being renumbered by the Income Tax Act of 2025. New numbers for the s…",
-    "relativeTime": "2 months ago",
-    "isRepost": true,
-    "paragraphs": [
-      "TDS/TCS forms are being renumbered by the Income Tax Act of 2025. New numbers for the same purpose.\nForm 16 → Form 130 Form 24Q → Form 138 Form 26AS → Form 168\nYou are already at risk if you continue to use outdated form numbers in your checklists and filings.\nCompliance errors are not insignificant. They cost a lot of money.\nKeep your records up to date. Tell someone who needs to know about this. 👇\nhashtag#TDSCompliance hashtag#NewIncomeTaxAct2025 hashtag#Accounting hashtag#IndianAccountants hashtag#IncomeTax"
-    ],
-    "quoted": [
-      {
-        "author": "Surya Prakash Singh",
-        "text": "🔄 Big Update in Tax Compliance: Form Renumbering Under the Income Tax Act, 2025\n\nThe transition to the Income Tax Act, 2025 brings a significant change — renumbering of key TDS/TCS forms. While the purpose of these forms remains the same, their new numbering will require careful attention from professionals and taxpayers alike.\n\n📌 What’s changing?\nHere are some key highlights:\n• Form 24Q ➡️ Form 138 (TDS on Salary)\n• Form 26Q ➡️ Form 140 (Domestic Non-Salary TDS)\n• Form 27Q ➡️ Form 144 (Non-Resident TDS)\n• Form 27EQ ➡️ Form 143 (TCS Return)\n• Form 26QB / 26QC / 26QD / 26QE ➡️ Form 141\n• Form 16 ➡️ Form 130 (TDS Certificate)\n• Form 26AS ➡️ Form 168 (Annual Tax Statement)\n• Form 12BB ➡️ Form 124\n\n💡 Why it matters?\nEven though the functionality stays consistent, misidentification of forms could lead to compliance errors during filing, reporting, or documentation.\n\n📊 Action Points for Professionals & Businesses:\n✔️ Update internal compliance checklists\n✔️ Reconfigure accounting/ERP systems\n✔️ Educate teams & clients on the new form numbers\n✔️ Review documentation templates\n\nThis renumbering is a step toward streamlining and modernizing tax administration, but adapting early will be key to staying compliant.\n\n📎 Refer to the attached overview for a quick mapping guide.\n\nhashtag#IncomeTax hashtag#TaxCompliance hashtag#TDS hashtag#TCS hashtag#FinanceUpdates hashtag#CharteredAccountant hashtag#Taxation hashtag#IndiaTax hashtag#ComplianceMatters hashtag#GSTCompliance hashtag#TaxProfessionals hashtag#TDSCompliance hashtag#NewIncomeTaxAct2026"
-      }
-    ],
-    "images": [
-      "assets/blog/image31.jpeg",
-      "assets/blog/image32.jpeg"
-    ]
-  },
-  {
     "id": 44,
     "title": "5 GST myths I hear all the time — busted. 👇",
     "relativeTime": "3 months ago",

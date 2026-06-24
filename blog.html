@@ -16,8 +16,14 @@
     />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="blog.css" />
+    <link rel="stylesheet" href="pet-widget.css" />
   </head>
   <body>
+    <div class="bg-animation" aria-hidden="true">
+      <span class="bg-blob bg-blob-1"></span>
+      <span class="bg-blob bg-blob-2"></span>
+      <span class="bg-blob bg-blob-3"></span>
+    </div>
     <div class="scroll-progress" data-progress aria-hidden="true"><span></span></div>
 
     <header class="site-header" data-header>
@@ -41,7 +47,7 @@
     <main id="top">
       <section class="blog-hero section-shell">
         <span class="blog-kicker">Blog</span>
-        <h1>Notes from the ledger.</h1>
+        <h1><span data-blog-rotator>Notes from the ledger.</span></h1>
         <p class="blog-lede">
           GST, Tally, AI in accounting, diamond-industry finance, and what nobody tells freshers
           before their first job — pulled straight from my LinkedIn activity.
@@ -84,5 +90,22 @@
     <script src="script.js"></script>
     <script src="blog-data.js"></script>
     <script src="blog.js"></script>
+
+    <div class="pet-widget" id="pet-widget">
+      <img src="assets/pet.png" alt="Ask my pet about Jitesh" draggable="false">
+      <div class="pet-bubble" id="pet-bubble"></div>
+    </div>
+    <div class="pet-chat" id="pet-chat" aria-hidden="true">
+      <div class="pet-chat-header">
+        <span>Ask about Jitesh</span>
+        <button type="button" id="pet-chat-close" aria-label="Close chat">&times;</button>
+      </div>
+      <div class="pet-chat-messages" id="pet-chat-messages"></div>
+      <form class="pet-chat-form" id="pet-chat-form">
+        <input type="text" id="pet-chat-input" placeholder="Ask something about Jitesh…" autocomplete="off">
+        <button type="submit">Send</button>
+      </form>
+    </div>
+    <script src="pet-widget.js"></script>
   </body>
 </html>
