@@ -88,11 +88,41 @@
     }
   });
 
-  function toggleChat() {
-    const open = chat.classList.toggle('is-open');
-    chat.setAttribute('aria-hidden', open ? 'false' : 'true');
-    if (open) input.focus();
+  function positionChatNearWidget() {
+    const rect = widget.getBoundingClientRect();
+    const gap = 12;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const chatWidth = chat.offsetWidth;
+    const chatHeight = chat.offsetHeight;
+
+    let top = rect.top > vh / 2 ? rect.top - chatHeight - gap : rect.bottom + gap;
+    top = Math.min(Math.max(8, top), vh - chatHeight - 8);
+
+    let left = rect.left > vw / 2 ? rect.right - chatWidth : rect.left;
+    left = Math.min(Math.max(8, left), vw - chatWidth - 8);
+
+    chat.style.right = 'auto';
+    chat.style.bottom = 'auto';
+    chat.style.left = left + 'px';
+    chat.style.top = top + 'px';
   }
+
+  function toggleChat() {
+    const opening = !chat.classList.contains('is-open');
+    if (opening) {
+      chat.classList.add('is-open');
+      positionChatNearWidget();
+      input.focus();
+    } else {
+      chat.classList.remove('is-open');
+    }
+    chat.setAttribute('aria-hidden', opening ? 'false' : 'true');
+  }
+
+  window.addEventListener('resize', () => {
+    if (chat.classList.contains('is-open')) positionChatNearWidget();
+  });
 
   closeBtn?.addEventListener('click', () => {
     chat.classList.remove('is-open');
@@ -106,6 +136,58 @@
     messages.appendChild(el);
     messages.scrollTop = messages.scrollHeight;
     return el;
+  }
+
+  function addImageMessage(from, src, caption) {
+    const el = document.createElement('div');
+    el.className = `pet-msg pet-msg-image from-${from}`;
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = caption || '';
+    img.loading = 'lazy';
+    el.appendChild(img);
+    if (caption) {
+      const cap = document.createElement('span');
+      cap.className = 'pet-msg-caption';
+      cap.textContent = caption;
+      el.appendChild(cap);
+    }
+    messages.appendChild(el);
+    messages.scrollTop = messages.scrollHeight;
+    return el;
+  }
+
+  function addActionMessage(from, label, href) {
+    const el = document.createElement('div');
+    el.className = `pet-msg from-${from}`;
+    const link = document.createElement('a');
+    link.className = 'pet-action-btn';
+    link.href = href;
+    link.target = '_blank';
+    link.rel = 'noreferrer';
+    link.textContent = label;
+    el.appendChild(link);
+    messages.appendChild(el);
+    messages.scrollTop = messages.scrollHeight;
+    return el;
+  }
+
+  const PHOTO_INTENT = /\b(photo|picture|pic|selfie|face|look like|looks like|what does he look)\b/i;
+  const CONTACT_INTENT = /\b(email|e-?mail|mail him|contact|reach out|get in touch|connect with him|send him a message)\b/i;
+
+  function gmailComposeUrl() {
+    const to = 'jiteshsolankii2005@gmail.com';
+    const subject = "Hey, wanted to connect!";
+    const body = [
+      'Hi Jitesh,',
+      '',
+      "I came across your portfolio (and met Byte!) and wanted to reach out and connect.",
+      '',
+      '[Add your message here]',
+      '',
+      'Looking forward to hearing from you!',
+    ].join('\n');
+    return `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
   form?.addEventListener('submit', async (e) => {
@@ -130,6 +212,13 @@
     } catch (err) {
       loadingEl.remove();
       addMessage('pet', "I can't reach my brain right now. Try again in a bit, or just email Jitesh directly.");
+    }
+
+    if (PHOTO_INTENT.test(question)) {
+      addImageMessage('pet', 'assets/jitesh-profile-4k.jpg', 'That\'s Jitesh!');
+    }
+    if (CONTACT_INTENT.test(question)) {
+      addActionMessage('pet', '✉️ Open Gmail to message Jitesh', gmailComposeUrl());
     }
   });
 })();

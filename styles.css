@@ -57,7 +57,7 @@ body {
   height: 38vmax;
   left: -10vmax;
   top: -12vmax;
-  background: radial-gradient(circle, rgba(24, 99, 79, 0.32), transparent 70%);
+  background: radial-gradient(circle, rgba(13, 84, 65, 0.48), transparent 70%);
   animation: bg-drift-1 18s ease-in-out infinite;
 }
 
@@ -66,7 +66,7 @@ body {
   height: 30vmax;
   right: -8vmax;
   top: 18vmax;
-  background: radial-gradient(circle, rgba(168, 70, 31, 0.3), transparent 70%);
+  background: radial-gradient(circle, rgba(148, 54, 19, 0.46), transparent 70%);
   animation: bg-drift-2 23s ease-in-out infinite;
 }
 
@@ -75,7 +75,7 @@ body {
   height: 34vmax;
   left: 22vmax;
   bottom: -16vmax;
-  background: radial-gradient(circle, rgba(151, 117, 31, 0.28), transparent 70%);
+  background: radial-gradient(circle, rgba(124, 93, 16, 0.44), transparent 70%);
   animation: bg-drift-3 27s ease-in-out infinite;
 }
 

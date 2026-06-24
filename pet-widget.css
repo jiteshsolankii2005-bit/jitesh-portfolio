@@ -62,8 +62,6 @@
 
 .pet-chat {
   position: fixed;
-  right: 22px;
-  bottom: 104px;
   z-index: 501;
   width: min(320px, calc(100vw - 44px));
   max-height: 60vh;
@@ -136,6 +134,39 @@
   font-style: italic;
 }
 
+.pet-msg-image {
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pet-msg-image img {
+  width: 100%;
+  max-width: 180px;
+  border-radius: var(--radius);
+  display: block;
+}
+
+.pet-msg-caption {
+  font-size: 0.76rem;
+  color: var(--accent-ink);
+  padding-left: 4px;
+}
+
+.pet-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  text-decoration: none;
+}
+
 .pet-chat-form {
   display: flex;
   border-top: 1px solid var(--line);
@@ -166,10 +197,6 @@
 }
 
 @media (max-width: 520px) {
-  .pet-chat {
-    right: 12px;
-    bottom: 96px;
-  }
   .pet-widget {
     right: 14px;
     bottom: 14px;
