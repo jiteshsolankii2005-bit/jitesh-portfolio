@@ -117,3 +117,90 @@ document.querySelectorAll(".reveal-card").forEach((card, index) => {
   card.style.setProperty("--delay", `${(index % 4) * 70}ms`);
   observer.observe(card);
 });
+
+// Secret access: click the brand logo 5x within 2s to open the login prompt.
+(function () {
+  const brand = document.querySelector(".brand");
+  if (!brand) return;
+  const brandHref = brand.getAttribute("href");
+  let clickTimes = [];
+  let navTimer = null;
+
+  brand.addEventListener("click", (e) => {
+    e.preventDefault();
+    const now = Date.now();
+    clickTimes = clickTimes.filter((t) => now - t < 2000);
+    clickTimes.push(now);
+    clearTimeout(navTimer);
+
+    if (clickTimes.length >= 5) {
+      clickTimes = [];
+      openLoginModal();
+      return;
+    }
+    navTimer = setTimeout(() => {
+      window.location.href = brandHref;
+    }, 350);
+  });
+
+  let modalEl = null;
+
+  function openLoginModal() {
+    if (modalEl) {
+      modalEl.classList.add("is-open");
+      return;
+    }
+    const style = document.createElement("style");
+    style.textContent = `
+      .secret-login-overlay { position:fixed; inset:0; z-index:1000; display:none; align-items:center; justify-content:center; background:rgba(22,25,30,0.55); }
+      .secret-login-overlay.is-open { display:flex; }
+      .secret-login-box { background:var(--surface); border-radius:var(--radius); padding:28px 26px; width:min(320px, calc(100vw - 48px)); box-shadow:var(--shadow); }
+      .secret-login-box h2 { margin:0 0 14px; font-family:"Fraunces",serif; font-size:1.15rem; }
+      .secret-login-box input { width:100%; margin-bottom:10px; padding:9px 11px; border:1px solid var(--line-strong); border-radius:var(--radius); font-family:inherit; font-size:0.9rem; }
+      .secret-login-box button { width:100%; padding:10px; border:none; border-radius:var(--radius); background:var(--ink); color:#fff; font-weight:700; cursor:pointer; }
+      .secret-login-error { color:var(--rust); font-size:0.8rem; margin:0 0 10px; min-height:1em; }
+    `;
+    document.head.appendChild(style);
+
+    modalEl = document.createElement("div");
+    modalEl.className = "secret-login-overlay is-open";
+    modalEl.innerHTML = `
+      <div class="secret-login-box">
+        <h2>Sign in</h2>
+        <p class="secret-login-error" id="secret-login-error"></p>
+        <form id="secret-login-form">
+          <input type="text" id="secret-login-id" placeholder="ID" autocomplete="off" />
+          <input type="password" id="secret-login-password" placeholder="Password" autocomplete="off" />
+          <button type="submit">Enter</button>
+        </form>
+      </div>
+    `;
+    document.body.appendChild(modalEl);
+
+    modalEl.addEventListener("click", (e) => {
+      if (e.target === modalEl) modalEl.classList.remove("is-open");
+    });
+
+    document.getElementById("secret-login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = document.getElementById("secret-login-id").value;
+      const password = document.getElementById("secret-login-password").value;
+      const errorEl = document.getElementById("secret-login-error");
+      errorEl.textContent = "";
+      try {
+        const res = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id, password }),
+        });
+        if (res.ok) {
+          window.location.href = "/dashboard";
+        } else {
+          errorEl.textContent = "Incorrect ID or password.";
+        }
+      } catch {
+        errorEl.textContent = "Couldn't reach the server. Try again.";
+      }
+    });
+  }
+})();
