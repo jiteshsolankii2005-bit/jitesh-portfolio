@@ -75,8 +75,8 @@
   margin: 0;
 }
 
-.blog-card:hover .blog-card-excerpt,
-.blog-card:focus-visible .blog-card-excerpt {
+.blog-card:hover .blog-card-excerpt:not(.blog-card-full),
+.blog-card:focus-visible .blog-card-excerpt:not(.blog-card-full) {
   max-height: 0;
   opacity: 0;
   margin: 0;
