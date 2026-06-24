@@ -129,12 +129,16 @@
     chat.setAttribute('aria-hidden', 'true');
   });
 
+  function scrollMessagesToEnd() {
+    messages.scrollTo({ top: messages.scrollHeight, behavior: 'smooth' });
+  }
+
   function addMessage(from, text) {
     const el = document.createElement('div');
     el.className = `pet-msg from-${from}`;
     el.textContent = text;
     messages.appendChild(el);
-    messages.scrollTop = messages.scrollHeight;
+    scrollMessagesToEnd();
     return el;
   }
 
@@ -153,7 +157,7 @@
       el.appendChild(cap);
     }
     messages.appendChild(el);
-    messages.scrollTop = messages.scrollHeight;
+    scrollMessagesToEnd();
     return el;
   }
 
@@ -163,21 +167,19 @@
     const link = document.createElement('a');
     link.className = 'pet-action-btn';
     link.href = href;
-    link.target = '_blank';
-    link.rel = 'noreferrer';
     link.textContent = label;
     el.appendChild(link);
     messages.appendChild(el);
-    messages.scrollTop = messages.scrollHeight;
+    scrollMessagesToEnd();
     return el;
   }
 
   const PHOTO_INTENT = /\b(photo|picture|pic|selfie|face|look like|looks like|what does he look)\b/i;
   const CONTACT_INTENT = /\b(email|e-?mail|mail him|contact|reach out|get in touch|connect with him|send him a message)\b/i;
 
-  function gmailComposeUrl() {
+  function mailDraftUrl() {
     const to = 'jiteshsolankii2005@gmail.com';
-    const subject = "Hey, wanted to connect!";
+    const subject = 'Hey, wanted to connect!';
     const body = [
       'Hi Jitesh,',
       '',
@@ -187,7 +189,7 @@
       '',
       'Looking forward to hearing from you!',
     ].join('\n');
-    return `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
   form?.addEventListener('submit', async (e) => {
@@ -218,7 +220,7 @@
       addImageMessage('pet', 'assets/jitesh-profile-4k.jpg', 'That\'s Jitesh!');
     }
     if (CONTACT_INTENT.test(question)) {
-      addActionMessage('pet', '✉️ Open Gmail to message Jitesh', gmailComposeUrl());
+      addActionMessage('pet', '✉️ Email Jitesh', mailDraftUrl());
     }
   });
 })();

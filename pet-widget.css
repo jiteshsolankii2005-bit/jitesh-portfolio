@@ -64,7 +64,7 @@
   position: fixed;
   z-index: 501;
   width: min(320px, calc(100vw - 44px));
-  max-height: 60vh;
+  height: min(60vh, 440px);
   display: none;
   flex-direction: column;
   background: var(--surface);
