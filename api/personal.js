@@ -43,6 +43,12 @@ const DASHBOARD_HTML = `<!doctype html>
   .saved-tag.is-visible { opacity:1; }
   .analytics-link { display:inline-block; margin-top:8px; padding:9px 16px; background: var(--ink); color:#fff; border-radius: var(--radius); text-decoration:none; font-size:0.85rem; font-weight:600; }
   .empty-note { color: var(--muted); font-size:0.82rem; font-style:italic; padding:6px 0; }
+  .video-layout { display:grid; grid-template-columns: 1.6fr 1fr; gap:16px; margin-top:14px; }
+  .video-frame { position:relative; padding-top:56.25%; background:#000; border-radius:var(--radius); overflow:hidden; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video-notes { display:flex; flex-direction:column; }
+  .video-notes textarea { width:100%; flex:1; min-height:220px; border:1px solid var(--line-strong); border-radius:var(--radius); padding:10px; font-family:inherit; font-size:0.88rem; resize:vertical; }
+  @media (max-width: 760px) { .video-layout { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -108,6 +114,26 @@ const DASHBOARD_HTML = `<!doctype html>
       <h2>Content Idea Notes</h2>
       <textarea id="notes-area" placeholder="Blog / LinkedIn post ideas, half-formed thoughts, anything..."></textarea>
       <span class="saved-tag" id="notes-saved">Saved</span>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <span class="sub">Learning</span>
+      <h2>Tabs</h2>
+      <div class="video-layout">
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/dFc-BUe506s"
+            title="Learning video"
+            frameborder="0"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="video-notes">
+          <textarea id="video-notes-area" placeholder="Notes while watching..."></textarea>
+          <span class="saved-tag" id="video-notes-saved">Saved</span>
+        </div>
+      </div>
     </section>
 
   </main>
@@ -289,6 +315,21 @@ const DASHBOARD_HTML = `<!doctype html>
       localStorage.setItem(notesKey, notesArea.value);
       notesSaved.classList.add("is-visible");
       setTimeout(() => notesSaved.classList.remove("is-visible"), 1200);
+    }, 500);
+  });
+
+  // --- Video Notes (Tabs) ---
+  const videoNotesKey = "personal.video-notes";
+  const videoNotesArea = document.getElementById("video-notes-area");
+  const videoNotesSaved = document.getElementById("video-notes-saved");
+  videoNotesArea.value = localStorage.getItem(videoNotesKey) || "";
+  let videoNotesTimer;
+  videoNotesArea.addEventListener("input", () => {
+    clearTimeout(videoNotesTimer);
+    videoNotesTimer = setTimeout(() => {
+      localStorage.setItem(videoNotesKey, videoNotesArea.value);
+      videoNotesSaved.classList.add("is-visible");
+      setTimeout(() => videoNotesSaved.classList.remove("is-visible"), 1200);
     }, 500);
   });
 })();
