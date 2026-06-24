@@ -10,6 +10,31 @@
   user-select: none;
 }
 
+.pet-widget::before,
+.pet-widget::after {
+  position: absolute;
+  top: 27px;
+  z-index: -1;
+  width: 18px;
+  height: 10px;
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+  background: var(--accent-soft);
+  opacity: 0;
+  content: "";
+  transition: opacity 120ms var(--ease-smooth);
+}
+
+.pet-widget::before {
+  left: -8px;
+  transform-origin: right center;
+}
+
+.pet-widget::after {
+  right: -8px;
+  transform-origin: left center;
+}
+
 .pet-widget.is-dragging {
   cursor: grabbing;
 }
@@ -28,6 +53,28 @@
   animation: pet-carried 0.35s ease-in-out infinite;
 }
 
+.pet-widget:hover img,
+.pet-widget.is-greeting img {
+  animation: pet-greeting 0.62s ease-in-out infinite;
+}
+
+.pet-widget:hover::before,
+.pet-widget:hover::after,
+.pet-widget.is-greeting::before,
+.pet-widget.is-greeting::after {
+  opacity: 1;
+}
+
+.pet-widget:hover::before,
+.pet-widget.is-greeting::before {
+  animation: pet-left-hand 0.44s ease-in-out infinite;
+}
+
+.pet-widget:hover::after,
+.pet-widget.is-greeting::after {
+  animation: pet-right-hand 0.44s ease-in-out infinite;
+}
+
 @keyframes pet-bob {
   0%, 100% { transform: translateY(0) rotate(-2deg); }
   50% { transform: translateY(-6px) rotate(2deg); }
@@ -36,6 +83,24 @@
 @keyframes pet-carried {
   0%, 100% { transform: scale(1.08) rotate(-8deg); }
   50% { transform: scale(1.12) rotate(8deg); }
+}
+
+@keyframes pet-greeting {
+  0%, 100% { transform: translateY(0) rotate(-4deg) scale(1.02); }
+  20% { transform: translateY(-5px) rotate(7deg) scale(1.07); }
+  40% { transform: translateY(-2px) rotate(-7deg) scale(1.06); }
+  60% { transform: translateY(-6px) rotate(6deg) scale(1.08); }
+  80% { transform: translateY(-2px) rotate(-3deg) scale(1.04); }
+}
+
+@keyframes pet-left-hand {
+  0%, 100% { transform: rotate(-18deg) translateX(0); }
+  50% { transform: rotate(-48deg) translate(-4px, -4px); }
+}
+
+@keyframes pet-right-hand {
+  0%, 100% { transform: rotate(18deg) translateX(0); }
+  50% { transform: rotate(48deg) translate(4px, -4px); }
 }
 
 .pet-bubble {
@@ -200,5 +265,16 @@
   .pet-widget {
     right: 14px;
     bottom: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pet-widget:hover img,
+  .pet-widget.is-greeting img,
+  .pet-widget:hover::before,
+  .pet-widget:hover::after,
+  .pet-widget.is-greeting::before,
+  .pet-widget.is-greeting::after {
+    animation: none;
   }
 }

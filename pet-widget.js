@@ -36,6 +36,13 @@
   let startY = 0;
   let originLeft = 0;
   let originTop = 0;
+  let greetTimer;
+
+  function greetByte() {
+    widget.classList.add('is-greeting');
+    clearTimeout(greetTimer);
+    greetTimer = window.setTimeout(() => widget.classList.remove('is-greeting'), 900);
+  }
 
   function showBubble() {
     bubble.textContent = GREETINGS[Math.floor(Math.random() * GREETINGS.length)];
@@ -46,10 +53,13 @@
   window.setTimeout(showBubble, 1500);
   window.setInterval(showBubble, 25000);
 
+  widget.addEventListener('pointerenter', greetByte);
+
   widget.addEventListener('pointerdown', (e) => {
     dragging = true;
     moved = false;
     widget.classList.add('is-dragging');
+    greetByte();
     const rect = widget.getBoundingClientRect();
     originLeft = rect.left;
     originTop = rect.top;
@@ -59,6 +69,7 @@
   });
 
   widget.addEventListener('pointermove', (e) => {
+    greetByte();
     if (!dragging) return;
     const dx = e.clientX - startX;
     const dy = e.clientY - startY;

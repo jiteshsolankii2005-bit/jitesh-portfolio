@@ -16,8 +16,26 @@ const DASHBOARD_HTML = `<!doctype html>
     --rust: #a8461f; --gold: #97751f; --radius: 3px;
   }
   * { box-sizing: border-box; }
-  body { margin:0; background: var(--bg); color: var(--ink); font-family: "Instrument Sans", sans-serif; }
-  header { display:flex; align-items:center; justify-content:space-between; padding: 18px 28px; border-bottom: 1px solid var(--line); background: var(--surface); }
+  body { position:relative; margin:0; overflow-x:hidden; background: var(--bg); color: var(--ink); font-family: "Instrument Sans", sans-serif; }
+  .dashboard-wallpaper { position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; background:
+    linear-gradient(90deg, rgba(22,25,30,0.04) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(22,25,30,0.04) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(24,99,79,0.12), transparent 44%),
+    linear-gradient(315deg, rgba(168,70,31,0.10), transparent 46%);
+    background-size: 54px 54px, 54px 54px, 100% 100%, 100% 100%;
+    animation: dashboard-grid-drift 22s linear infinite;
+  }
+  .dashboard-wallpaper span { position:absolute; bottom:-12vh; font-family:"IBM Plex Mono",monospace; font-size:clamp(0.95rem, 2.4vw, 1.8rem); font-weight:600; color:rgba(13,60,48,0.28); animation: dashboard-symbol-rise var(--duration, 18s) ease-in-out infinite; animation-delay:var(--delay, 0s); }
+  .dashboard-wallpaper span:nth-child(3n) { color:rgba(168,70,31,0.24); }
+  .dashboard-wallpaper span:nth-child(3n + 1) { color:rgba(151,117,31,0.24); }
+  @keyframes dashboard-grid-drift { from { background-position:0 0, 0 0, 0 0, 0 0; } to { background-position:54px 54px, 54px 54px, 0 0, 0 0; } }
+  @keyframes dashboard-symbol-rise {
+    0% { transform: translateY(0) rotate(0deg); opacity:0; }
+    14% { opacity:1; }
+    86% { opacity:1; }
+    100% { transform: translateY(-116vh) rotate(18deg); opacity:0; }
+  }
+  header { display:flex; align-items:center; justify-content:space-between; padding: 18px 28px; border-bottom: 1px solid var(--line); background: rgba(255,253,249,0.88); backdrop-filter: blur(12px); }
   header h1 { font-family:"Fraunces",serif; font-size:1.3rem; margin:0; }
   header a { font-family:"IBM Plex Mono",monospace; font-size:0.8rem; color: var(--muted); text-decoration:none; }
   header a:hover { color: var(--ink); }
@@ -49,9 +67,26 @@ const DASHBOARD_HTML = `<!doctype html>
   .video-notes { display:flex; flex-direction:column; }
   .video-notes textarea { width:100%; flex:1; min-height:220px; border:1px solid var(--line-strong); border-radius:var(--radius); padding:10px; font-family:inherit; font-size:0.88rem; resize:vertical; }
   @media (max-width: 760px) { .video-layout { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) {
+    .dashboard-wallpaper,
+    .dashboard-wallpaper span { animation:none; }
+  }
 </style>
 </head>
 <body>
+  <div class="dashboard-wallpaper" aria-hidden="true">
+    <span style="left:4%; --duration:17s; --delay:-2s;">₹</span>
+    <span style="left:11%; --duration:21s; --delay:-9s;">%</span>
+    <span style="left:18%; --duration:19s; --delay:-5s;">+</span>
+    <span style="left:27%; --duration:24s; --delay:-14s;">GST</span>
+    <span style="left:36%; --duration:18s; --delay:-7s;">✓</span>
+    <span style="left:45%; --duration:23s; --delay:-11s;">AP</span>
+    <span style="left:55%; --duration:20s; --delay:-3s;">AR</span>
+    <span style="left:65%; --duration:22s; --delay:-16s;">₹</span>
+    <span style="left:74%; --duration:18s; --delay:-6s;">%</span>
+    <span style="left:84%; --duration:25s; --delay:-12s;">+</span>
+    <span style="left:93%; --duration:20s; --delay:-8s;">✓</span>
+  </div>
   <header>
     <h1>Personal Dashboard</h1>
     <a href="/api/logout">Log out</a>
