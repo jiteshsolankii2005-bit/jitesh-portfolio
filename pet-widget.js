@@ -217,6 +217,7 @@
 
   const PHOTO_INTENT = /\b(photo|picture|pic|selfie|face|look like|looks like|what does he look)\b/i;
   const CONTACT_INTENT = /\b(email|e-?mail|mail him|contact|reach out|get in touch|connect with him|send him a message)\b/i;
+  const HIRE_INTENT = /\b(hire|hiring|recruit|recruiter|job|opportunity|work with|should i hire)\b/i;
   const THEME_INTENT = /\b(theme|dark|night|midnight|light|classic|green|mint|colour|color|background|mood)\b/i;
 
   function mailDraftUrl() {
@@ -249,6 +250,10 @@
       window.setTimeout(() => {
         window.location.href = mailDraftUrl();
       }, 650);
+    }
+
+    if (HIRE_INTENT.test(question) && !CONTACT_INTENT.test(question)) {
+      addActionMessage('pet', 'Email Jitesh about an opportunity', mailDraftUrl());
     }
 
     if (THEME_INTENT.test(question)) {

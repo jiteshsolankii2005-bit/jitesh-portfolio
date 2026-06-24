@@ -48,7 +48,8 @@ const AI_PROVIDERS = [
   },
 ];
 
-const PRIVATE_INTENT = /\b(private|personal|admin|dashboard|login|hidden|secret|tracker|internal|route|password)\b/i;
+const PRIVATE_INTENT = /\b(admin|dashboard|login|hidden|secret|internal|password|private route|private page|private area|personal dashboard|personal tracker|personal login|personal admin|personal data|personal notes)\b/i;
+const PUBLIC_SKILL_INTENT = /\b(hire|hiring|recruit|recruiter|job|role|skills?|strength|experience|capable|good fit|should i hire|why hire|tell me more about (him|his skills|jitesh))\b/i;
 
 async function askProvider(provider, question) {
   const controller = new AbortController();
@@ -79,6 +80,9 @@ function localAnswer(question) {
   const q = question.toLowerCase();
   if (PRIVATE_INTENT.test(q)) {
     return "I can only help with Jitesh's public portfolio details, projects, blog, resume, and contact links. For anything private, please ask Jitesh directly.";
+  }
+  if (PUBLIC_SKILL_INTENT.test(q)) {
+    return "If you need a practical junior accounts/finance person, Jitesh is worth a look. His strongest areas are Tally Prime, GST workings, Excel trackers, reconciliations, AP/AR basics, and using AI tools to reduce repetitive finance work. He is still growing, so the best fit is a role with real responsibility plus room to learn.";
   }
   if (/\b(contact|email|mail|connect|reach|get in touch)\b/.test(q)) {
     return "Sure. I can open an email draft for you with Jitesh's address filled in. Add your message and send it when you're ready.";
@@ -116,6 +120,10 @@ module.exports = async function handler(req, res) {
   const cleanQuestion = question.trim().slice(0, 500);
   if (PRIVATE_INTENT.test(cleanQuestion)) {
     res.status(200).json({ answer: localAnswer(cleanQuestion), source: 'private-guard' });
+    return;
+  }
+  if (PUBLIC_SKILL_INTENT.test(cleanQuestion)) {
+    res.status(200).json({ answer: localAnswer(cleanQuestion), source: 'local-public-skills' });
     return;
   }
 
