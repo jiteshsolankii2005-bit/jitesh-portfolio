@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog — Jitesh Solanki</title>
+    <meta
+      name="description"
+      content="Notes on GST, Tally, AI in accounting, and life as a B.Com fresher working in diamond industry finance — by Jitesh Solanki."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="blog.css" />
+  </head>
+  <body>
+    <div class="scroll-progress" data-progress aria-hidden="true"><span></span></div>
+
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html#top" aria-label="Jitesh Solanki home">
+        <span class="brand-mark">JS</span>
+        <span>Jitesh Solanki</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="index.html#story">Background</a>
+        <a href="index.html#proof">Experience</a>
+        <a href="index.html#support">How I Help</a>
+        <a href="blog.html" class="is-current">Blog</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a class="header-link" href="mailto:jiteshsolankii2005@gmail.com">Email</a>
+        <a class="header-action" href="https://www.linkedin.com/in/jitesh-solanki-805598375/" target="_blank" rel="noreferrer">LinkedIn</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="blog-hero section-shell">
+        <span class="blog-kicker">Blog</span>
+        <h1>Notes from the ledger.</h1>
+        <p class="blog-lede">
+          GST, Tally, AI in accounting, diamond-industry finance, and what nobody tells freshers
+          before their first job — pulled straight from my LinkedIn activity.
+        </p>
+      </section>
+
+      <section class="blog-grid-section section-shell">
+        <div class="blog-grid" id="blog-grid" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Jitesh Solanki — accounting, data, and AI, built one month at a time.</p>
+      <a href="index.html#top">Back to home</a>
+    </footer>
+
+    <div class="blog-reader" id="blog-reader" aria-hidden="true">
+      <div class="blog-reader-backdrop" data-reader-close></div>
+      <article class="blog-reader-panel" role="dialog" aria-modal="true" aria-labelledby="reader-title">
+        <button type="button" class="blog-reader-close" data-reader-close aria-label="Close post">&times;</button>
+        <div class="blog-reader-carousel" id="reader-carousel" hidden>
+          <div class="blog-carousel-track" id="reader-track"></div>
+          <button type="button" class="blog-carousel-arrow blog-carousel-prev" data-carousel-prev aria-label="Previous image">&#8249;</button>
+          <button type="button" class="blog-carousel-arrow blog-carousel-next" data-carousel-next aria-label="Next image">&#8250;</button>
+          <div class="blog-carousel-dots" id="reader-dots"></div>
+        </div>
+        <div class="blog-reader-body">
+          <div class="blog-reader-meta">
+            <span id="reader-time"></span>
+            <span id="reader-repost" class="blog-repost-tag" hidden>♻ Repost with comment</span>
+          </div>
+          <h2 id="reader-title"></h2>
+          <div id="reader-text" class="blog-reader-text"></div>
+          <div id="reader-quoted" class="blog-quoted" hidden></div>
+        </div>
+      </article>
+    </div>
+
+    <button class="to-top" type="button" data-to-top aria-label="Back to top">↑</button>
+    <script src="script.js"></script>
+    <script src="blog-data.js"></script>
+    <script src="blog.js"></script>
+  </body>
+</html>
