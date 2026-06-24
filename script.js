@@ -117,3 +117,20 @@ document.querySelectorAll(".reveal-card").forEach((card, index) => {
   card.style.setProperty("--delay", `${(index % 4) * 70}ms`);
   observer.observe(card);
 });
+
+const skillCloud = document.querySelector(".skill-cloud");
+if (skillCloud) {
+  const skillObserver = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll(".skill-bar").forEach((bar, i) => {
+          window.setTimeout(() => bar.classList.add("is-filled"), i * 35);
+        });
+        obs.disconnect();
+      });
+    },
+    { threshold: 0.2 }
+  );
+  skillObserver.observe(skillCloud);
+}
