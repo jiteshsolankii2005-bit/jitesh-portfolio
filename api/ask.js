@@ -16,8 +16,8 @@ FACTS ABOUT JITESH SOLANKI:
 - Chose a corporate accounting job over a traditional CA articleship path after graduating — values real responsibility and being paid while learning over the traditional CA route.
 - Writes regularly on LinkedIn about GST, Tally, AI in accounting, diamond-industry finance specifics, and career advice for B.Com freshers and CA students in India.
 - Personal interests/projects: built "Wizard Mode," a personal life-gamification app (daily quests across health/financial/learning areas, a financial ledger dashboard) for Android using Capacitor; built this very portfolio website himself.
-- Portfolio Projects section: Bank Reconciliation Tracker, Data Visualization Dashboard, SOP & Process Documentation Pack, GST Workings Tracker, Financial Statement Schedule Pack — all Excel/Word builds from real finance work.
-- Positioning: not just an accountant — pairs solid accounting fundamentals (Tally, GST, reconciliations) with AI tools to work faster and cleaner, without cutting corners on accuracy.
+- Has a dedicated Projects & Tools page (projects.html): 5 projects (Bank Reconciliation Tracker, Data Visualization Dashboard, SOP & Process Documentation Pack, GST Workings Tracker, Financial Statement Schedule Pack), 6 certifications/credentials (US CMA in progress, B.Com Distinction, Tally Prime, GST compliance, Advanced Excel, Applied AI Tools for Finance), and a list of 50 AI tools he uses across premium, free, open-source, local, and cloud — including ChatGPT, Claude, Claude Code, Codex, Grok, Cursor, GitHub Copilot, OpenCode, Ollama, and LM Studio.
+- Positioning: not just an accountant — he's a finance professional who is also an AI generalist. Accounting fundamentals (Tally, GST, reconciliations) are the foundation; AI tools are how he solves problems faster and cleaner, without cutting corners on accuracy.
 - Contact: jiteshsolankii2005@gmail.com, LinkedIn: linkedin.com/in/jitesh-solanki-805598375.`;
 
 module.exports = async function handler(req, res) {

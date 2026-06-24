@@ -930,7 +930,6 @@ main, .site-header, .site-footer {
 .skill-cloud span {
   position: relative;
   display: inline-flex;
-  flex-direction: column;
   padding: 11px 15px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -939,52 +938,6 @@ main, .site-header, .site-footer {
   font-weight: 700;
   cursor: default;
   transition: opacity 220ms var(--ease-smooth), transform 220ms var(--ease-smooth), border-color 220ms var(--ease-smooth);
-}
-
-.skill-bar-wrap {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 8px;
-  width: 100%;
-}
-
-.skill-bar {
-  flex: 1;
-  min-width: 64px;
-  height: 4px;
-  border-radius: 999px;
-  background: var(--line);
-  overflow: hidden;
-}
-
-.skill-bar::after {
-  content: "";
-  display: block;
-  height: 100%;
-  width: var(--pct, 60%);
-  background: var(--accent);
-  border-radius: 999px;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 620ms var(--ease-smooth);
-}
-
-.skill-bar.is-filled::after {
-  transform: scaleX(1);
-}
-
-.skill-cloud span:hover .skill-bar::after,
-.skill-cloud span:focus-visible .skill-bar::after {
-  transform: scaleX(1);
-}
-
-.skill-pct {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--muted);
-  white-space: nowrap;
 }
 
 .skill-cloud span:hover {
