@@ -274,6 +274,7 @@
     if (!question) return;
     addMessage('user', question);
     input.value = '';
+    handleLocalActions(question);
 
     const loadingEl = addMessage('pet', 'Byte is thinking…');
     loadingEl.classList.add('is-loading');
@@ -291,7 +292,5 @@
       loadingEl.remove();
       addMessage('pet', "My cloud brain is slow right now, but I can still help with contact, theme, projects, resume, blog, and Jitesh's basics.");
     }
-
-    handleLocalActions(question);
   });
 })();
